@@ -83,4 +83,4 @@ Material:
     - _Color: {r: 0, g: 1, b: 0.006896496, a: 1}
     - _Color1: {r: 0, g: 1, b: 0.2965517, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _WireColor: {r: 0.11724126, g: 1, b: 0, a: 1}
+    - _WireColor: {r: 0.11624502, g: 0.66176474, b: 0.043793257, a: 1}
