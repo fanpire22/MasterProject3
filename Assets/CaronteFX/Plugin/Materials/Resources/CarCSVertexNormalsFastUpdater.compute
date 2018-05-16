@@ -1,0 +1,156 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+#include "CFX-BASIC.cginc"
+
+Texture2D<float4> positions;
+RWTexture2D<float4> normals;
+
+struct VertexData
+{
+  vector<uint,  4> neighbors_indices_;
+  vector<float, 4> neighbors_weights_;
+  vector<float, 4> neighbors_angles_;
+  float3           normal_LOCAL_;
+};
+
+StructuredBuffer<VertexData> arrVertexData;
+uint vertexCount;
+
+static const uint uintNoFound = 0xFFFFFFFF;
+
+ //-----------------------------------------------------------------------------------
+ //
+ // calculateLocalSystem_uz:
+ //
+ //-----------------------------------------------------------------------------------
+float3 calculateLocalSystem_uz(const uint indexVertex, const uint2 indexVertex2)
+{
+  VertexData data = arrVertexData[indexVertex];
+  const float4 o = positions[indexVertex2];
+
+  float3 uZ = float3(0.0, 0.0, 0.0);
+
+  for (uint i = 0; i < 4; i++)
+  {
+    const uint  a_index = data.neighbors_indices_[i];
+    const uint2 a_index2 = getDualIdxFromMonoIdx(a_index);
+
+    uint iCircular = (i + 1) % 4;
+    const uint  b_index  = data.neighbors_indices_[iCircular];
+    const uint2 b_index2 = getDualIdxFromMonoIdx(b_index);
+
+    if (b_index == uintNoFound)
+    {
+      break;
+    }
+
+    const float3 a_r = (float3)(positions[a_index2] - o);
+    const float3 b_r = (float3)(positions[b_index2] - o);
+
+    float3 ab_uZ = cross(a_r, b_r);
+
+    float moduleSq = dot(ab_uZ, ab_uZ);
+    if (moduleSq > 0.0)
+    {
+      ab_uZ = normalize(ab_uZ);
+      uZ += ab_uZ * data.neighbors_weights_[i];
+    }
+  }
+
+  return normalize(uZ);
+}//calculateLocalSystem_uz...
+
+//-----------------------------------------------------------------------------------
+//
+// removeProjection:
+//
+//-----------------------------------------------------------------------------------
+void removeProjection(inout float3 v, float3 uRemoveProjectionOnMe)
+{
+  const float3 vRemove = uRemoveProjectionOnMe * dot(v, uRemoveProjectionOnMe);
+  v = v - vRemove;
+}//removeProjection...
+
+ //-----------------------------------------------------------------------------------
+ //
+ // calculateLocalSystem:
+ //
+ //-----------------------------------------------------------------------------------
+void calculateLocalSystem(uint indexVertex,
+                          uint2 indexVertex2,
+                          out float3 uX,
+                          out float3 uY,
+                          out float3 uZ) 
+{
+
+  uZ = calculateLocalSystem_uz(indexVertex, indexVertex2);
+
+  const VertexData data = arrVertexData[indexVertex];
+  const float4 o = positions[indexVertex2];
+
+  // calculate basis e0, e1 for plane with normal uZ. e0 aligned to position 0:
+  uint neighbor0_index = data.neighbors_indices_[0];
+  uint2 neighbor0_index2 = getDualIdxFromMonoIdx(neighbor0_index);
+
+  float3 e0 = (float3)(positions[neighbor0_index2] - o);
+  removeProjection(e0, uZ);
+  e0 = normalize(e0);
+
+  const float3 e1 = cross(uZ, e0);
+
+  // calculate uX in basis e0, e1:
+  float2 uX_2d = float2(1.0, 0.0);
+
+  for (uint i = 1; i < 4; i++)
+  {
+    const uint neighbor_index = data.neighbors_indices_[i];
+
+    if (neighbor_index == uintNoFound)
+    {
+      break;
+    }
+
+    const uint2 neighbor_index2 = getDualIdxFromMonoIdx(neighbor_index);
+
+    const float3 r = (float3)(positions[neighbor_index2] - o);
+    float2 r_2d = float2(dot(e0, r), dot(e1, r));
+    r_2d = normalize(r_2d);
+
+    const float angle = data.neighbors_angles_[i];
+    float cos_angle;
+    float sin_angle;   
+    sincos(angle, sin_angle, cos_angle);
+
+    uX_2d.x += r_2d.x * cos_angle - r_2d.y * sin_angle;
+    uX_2d.y += r_2d.x * sin_angle + r_2d.y * cos_angle;
+  }
+
+  uX_2d = normalize(uX_2d);
+  uX = e0 * uX_2d.x + e1 * uX_2d.y;
+  uY = cross(uZ, uX);
+
+}//calculateLocalSystem...
+
+[numthreads(32, 1, 1)]
+void CSMain(uint id : SV_DispatchThreadID)
+{
+  if (id >= vertexCount)
+  {
+    return;
+  }
+
+  uint indexVertex = id;
+  uint2 indexVertex2 = getDualIdxFromMonoIdx(indexVertex);
+
+  float3 uX, uY, uZ;
+  calculateLocalSystem(indexVertex, indexVertex2, uX, uY, uZ);
+
+  const float3 normal_LOCAL = arrVertexData[indexVertex].normal_LOCAL_;
+
+  float4 normal = float4(  uX * normal_LOCAL.x
+                         + uY * normal_LOCAL.y
+                         + uZ * normal_LOCAL.z, 0.0 );
+  
+  normals[indexVertex2] = normal;
+}

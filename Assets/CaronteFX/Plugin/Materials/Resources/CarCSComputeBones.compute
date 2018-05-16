@@ -1,0 +1,58 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+#include "CFX-BASIC.cginc"
+
+int boneCount;
+float time;
+
+StructuredBuffer<float4x4> buf_initialRootMatrix;
+StructuredBuffer<float4x4> buf_bindPose;
+
+StructuredBuffer<float4x4> buf_rootBoneMatrix;
+StructuredBuffer<float4x4> buf_boneMatrix;
+
+StructuredBuffer<float2> buf_visibility;
+
+RWStructuredBuffer<float4x4> buf_actualBoneMatrix;
+RWStructuredBuffer<float3x3> buf_actualNormalMatrix;
+
+static const int nThreadsX = 256;
+
+[numthreads(nThreadsX,1,1)]
+void CSMain (uint2 id : SV_DispatchThreadID)
+{
+  const int monoIdx = id.x + id.y * nThreadsX;
+
+  if (monoIdx >= boneCount)
+  {
+    return;
+  }
+
+  float min = buf_visibility[monoIdx].x;
+  float max = buf_visibility[monoIdx].y;
+
+  if (time < min || time >= max)
+  {
+    buf_actualBoneMatrix[monoIdx]   = float4x4( 0, 0, 0, 0,
+                                                0, 0, 0, 0, 
+                                                0, 0, 0, 0, 
+                                                0, 0, 0, 1 );
+    return;
+  }
+
+  const float4x4 initialRootMatrix = buf_initialRootMatrix[0];
+  const float4x4 bindPose = buf_bindPose[monoIdx];
+
+  const float4x4 rootBoneMatrix = buf_rootBoneMatrix[0];
+  const float4x4 boneMatrix = buf_boneMatrix[monoIdx];
+
+  const float4x4 actualBoneMatrix = mul( mul( initialRootMatrix, mul( rootBoneMatrix, boneMatrix )), bindPose );
+
+  buf_actualBoneMatrix[monoIdx] = actualBoneMatrix;
+
+  float3x3 actualBoneInvMatrix;
+  inverse3x3((float3x3)actualBoneMatrix, actualBoneInvMatrix);
+
+  buf_actualNormalMatrix[monoIdx] = transpose(actualBoneInvMatrix);
+}

@@ -1,0 +1,263 @@
+﻿#pragma kernel CSMain
+
+#include "CFX-BASIC.cginc"
+
+RWTexture2D<float4> positions;
+
+StructuredBuffer<uint> fibers;
+StructuredBuffer<uint> fibersDefinition;
+
+uint nFibers;
+
+float4 meshBox_min;
+float4 meshBox_max;
+
+static const float PI = 3.1415926535897932384626433832795;
+static const float PHI = 1.6180339887498948482045868343656;
+
+//#define madfrac(A, B) mad((A), (B), -floor((A)*(B)))
+
+float madfrac(float a, float b)
+{
+  return(a*b - floor(a*b));
+}
+
+ //-----------------------------------------------------------------------------------
+ //
+ // index_TO_sphere1Point:
+ //
+ //-----------------------------------------------------------------------------------
+float4 index_TO_sphere1Point(float i, float n)
+{
+  const float phi      = 2.0 * PI * frac(i * (PHI - 1.0));
+  const float zi       = 1.0 - (2.0*i + 1.0) / n;
+  const float sinTheta = sqrt(1.0 - zi*zi);
+
+  return float4(cos(phi)*sinTheta, sin(phi)*sinTheta, zi, 0.0);
+}//index_TO_sphere1Point...
+
+
+//-----------------------------------------------------------------------------------
+//
+// decodeFiberPos:
+//
+//-----------------------------------------------------------------------------------
+void shader_decodeFiberPos(uint  angle,
+                           uint  dist,
+                           uint  dist32_min,
+                           uint  dist32_max,
+                           inout float4 pos)
+{
+  const float converterToDistRatio = 1.0f / 31.0f;
+  const float angle_precis = 32768.0;
+
+  const float4 posDelta_u = index_TO_sphere1Point((float)angle, angle_precis);
+
+  const float distRatio = (float)(dist) * converterToDistRatio;
+  const float distance_min = (float)(dist32_min) * 0.000001f;
+  const float distance_max = (float)(dist32_max) * 0.000001f;
+  const float posDelta_mod = distance_min + (distance_max - distance_min) * distRatio;
+ 
+  pos += posDelta_u * posDelta_mod;
+}//decodeFiberPos...
+
+
+//-----------------------------------------------------------------------------------
+//
+// CSMain:
+//
+//-----------------------------------------------------------------------------------
+[numthreads(32, 1, 1)]
+void CSMain(uint id : SV_DispatchThreadID)
+{
+  if (id >= nFibers)
+  {
+    return;
+  }
+
+  uint fiberIndex = id;
+
+  const uint CONST_FiberLength_headIncludedNo = 16;
+  const float ratePos_to_Float = 0.000015259021896696421759365224689097f;
+
+  const uint STRIDE_DefinitionFiber = 49;
+  const uint STRIDE_CompressedFiber = 12; 
+
+  // masks:
+  //_________________________________________________________________________________
+  const uint mask_0_15 = 0x0000FFFF;
+  const uint uintNoFound = 0xFFFFFFFF;
+
+  // init cursors:
+  //_________________________________________________________________________________
+  uint defFiberCursor = fiberIndex * STRIDE_DefinitionFiber;
+  uint fiberCursor = fiberIndex * STRIDE_CompressedFiber;
+
+
+  // head:
+  //_________________________________________________________________________________
+  const uint headPosRate_XY = fibers[fiberCursor];
+  ++fiberCursor;
+
+  const uint headPosRate_X = headPosRate_XY & mask_0_15;
+  const uint headPosRate_Y = headPosRate_XY >> 16;
+
+  const uint headPosRate_Z = fibers[fiberCursor];
+  ++fiberCursor;
+
+  float4 pos;
+  pos.x = meshBox_min.x + (meshBox_max.x - meshBox_min.x) * (float)headPosRate_X * ratePos_to_Float;
+  pos.y = meshBox_min.y + (meshBox_max.y - meshBox_min.y) * (float)headPosRate_Y * ratePos_to_Float;
+  pos.z = meshBox_min.z + (meshBox_max.z - meshBox_min.z) * (float)headPosRate_Z * ratePos_to_Float;
+  pos.w = 0;
+
+  uint head_posIndex = fibersDefinition[defFiberCursor];
+  uint2 head_posIndex2 = getDualIdxFromMonoIdx(head_posIndex);
+  ++defFiberCursor;
+
+  positions[head_posIndex2] = pos;
+
+  const uint mask_0_14 = 32767;  
+  const uint mask_0_4 = 31;      
+  const uint mask_12_14 = 28672; 
+  const uint mask_4_14 = 32752;  
+  const uint mask_1_4 = 30;      
+  const uint mask_8_14 = 32512;  
+
+  for (int a = 0; a<2; ++a)
+  {
+    // pos[0]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      const uint angle = fibers[fiberCursor] & mask_0_14;
+      const uint dist = (fibers[fiberCursor] >> 15) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[1]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      uint angle = (fibers[fiberCursor++] >> 20); // & mask_0_11;
+      angle |= (fibers[fiberCursor] << 12) & mask_12_14;
+      const uint dist = (fibers[fiberCursor] >> 3) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[2]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      const uint angle = (fibers[fiberCursor] >> 8) & mask_0_14;
+      const uint dist = (fibers[fiberCursor] >> 23) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[3]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      uint angle = (fibers[fiberCursor++] >> 28); // & mask_0_3;
+      angle |= (fibers[fiberCursor] << 4) & mask_4_14;
+      const uint dist = (fibers[fiberCursor] >> 11) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[4]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      const uint angle = (fibers[fiberCursor] >> 16) & mask_0_14;
+      uint dist = (fibers[fiberCursor++] >> 31);
+      dist |= (fibers[fiberCursor] << 1) & mask_1_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos;  }
+    }
+
+    // pos[5]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      const uint angle = (fibers[fiberCursor] >> 4) & mask_0_14;
+      const uint dist = (fibers[fiberCursor] >> 19) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[6]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      uint angle = (fibers[fiberCursor++] >> 24); // & mask_0_7;
+      angle |= (fibers[fiberCursor] << 8) & mask_8_14;
+      const uint dist = (fibers[fiberCursor] >> 7) & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    // pos[7]:
+    //_________________________________________________________________________________
+    {
+      const uint posIndex = fibersDefinition[defFiberCursor++];
+      const uint2 posIndex2 = getDualIdxFromMonoIdx(posIndex);
+      const uint dist32_min = fibersDefinition[defFiberCursor++];
+      const uint dist32_max = fibersDefinition[defFiberCursor++];
+
+      const uint angle = (fibers[fiberCursor] >> 12) & mask_0_14;
+      const uint dist = (fibers[fiberCursor] >> 27); // & mask_0_4;
+
+      shader_decodeFiberPos(angle, dist, dist32_min, dist32_max, pos);
+
+      if (posIndex != uintNoFound) { positions[posIndex2] = pos; }
+    }
+
+    fiberCursor++;
+  }
+}

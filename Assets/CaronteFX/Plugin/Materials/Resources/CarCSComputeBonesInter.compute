@@ -1,0 +1,100 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+#include "CFX-BASIC.cginc"
+
+int boneCount;
+float time;
+float t;
+
+int framePrev;
+int frameNext;
+float frameTime;
+
+StructuredBuffer<float4x4> buf_initialRootMatrix;
+StructuredBuffer<float4x4> buf_bindPose;
+
+StructuredBuffer<float4x4> buf_rootBoneMatrixPrev;
+StructuredBuffer<float4x4> buf_boneMatrixPrev;
+
+StructuredBuffer<float4x4> buf_rootBoneMatrixNext;
+StructuredBuffer<float4x4> buf_boneMatrixNext;
+
+StructuredBuffer<float2> buf_visibility;
+
+RWStructuredBuffer<float4x4> buf_actualBoneMatrix;
+RWStructuredBuffer<float3x3> buf_actualNormalMatrix;
+
+static const int nThreadsX = 256;
+
+[numthreads(nThreadsX,1,1)]
+void CSMain (uint2 id : SV_DispatchThreadID)
+{
+  const int monoIdx = id.x + id.y * nThreadsX;
+
+  if (monoIdx >= boneCount)
+  {
+    return;
+  }
+
+  float iMin = buf_visibility[monoIdx].x;
+  float iMax = buf_visibility[monoIdx].y;
+
+  if (time < iMin || time >= iMax)
+  {
+    buf_actualBoneMatrix[monoIdx]   = float4x4( 0, 0, 0, 0,
+                                                0, 0, 0, 0, 
+                                                0, 0, 0, 0, 
+                                                0, 0, 0, 1 );
+    return;
+  }
+
+  float prevFrameTime = framePrev * frameTime;
+  float nextFrameTime = frameNext * frameTime;
+
+  bool ghostPrev = prevFrameTime < iMin;
+  bool ghostNext = nextFrameTime > iMax;
+
+  float tOk = t;
+
+  if ( ghostPrev && ghostNext )
+  {
+    float min = iMin;
+    float max = iMax;
+    tOk = (time - min) / (max - min);
+  }
+  else if ( ghostPrev )
+  {
+    float min = iMin;
+    float max = frameNext * frameTime;
+    tOk = (time - min) / (max - min);
+  }
+  else if ( ghostNext )
+  {
+    float min = framePrev * frameTime;
+    float max = iMax;
+    tOk = (time - min) / (max - min);
+  }
+
+  const float4x4 initialRootMatrix = buf_initialRootMatrix[0];
+  const float4x4 bindPose = buf_bindPose[monoIdx];
+
+  const float4x4 rootBoneMatrixPrev = buf_rootBoneMatrixPrev[0];
+  const float4x4 boneMatrixPrev = buf_boneMatrixPrev[monoIdx];
+
+  const float4x4 actualBoneMatrixPrev = mul( mul( initialRootMatrix, mul(rootBoneMatrixPrev, boneMatrixPrev)), bindPose );
+
+  const float4x4 rootBoneMatrixNext = buf_rootBoneMatrixNext[0];
+  const float4x4 boneMatrixNext = buf_boneMatrixNext[monoIdx];
+
+  const float4x4 actualBoneMatrixNext = mul(mul(initialRootMatrix, mul(rootBoneMatrixNext, boneMatrixNext)), bindPose);
+
+  const float4x4 actualBoneMatrix = actualBoneMatrixPrev + tOk * (actualBoneMatrixNext - actualBoneMatrixPrev);
+
+  buf_actualBoneMatrix[monoIdx] = actualBoneMatrix;
+
+  float3x3 actualBoneInvMatrix;
+  inverse3x3( (float3x3)actualBoneMatrix, actualBoneInvMatrix );
+
+  buf_actualNormalMatrix[monoIdx] = transpose(actualBoneInvMatrix);
+}

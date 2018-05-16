@@ -1,0 +1,93 @@
+﻿#pragma kernel CSMain
+
+#include "CFX-BASIC.cginc"
+
+RWTexture2D<float4> tex_position;
+RWTexture2D<float4> tex_normal;
+
+struct BoneWeight
+{
+  int boneIndex0;
+  int boneIndex1;
+  int boneIndex2;
+  int boneIndex3;
+
+  float weight0;
+  float weight1;
+  float weight2;
+  float weight3;
+};
+
+uint vertexCount;
+
+StructuredBuffer<float3> buf_position;
+StructuredBuffer<float3> buf_normal;
+
+StructuredBuffer<BoneWeight> buf_boneWeight;
+
+StructuredBuffer<float4x4> buf_boneMatrix;
+StructuredBuffer<float3x3> buf_normalMatrix;
+
+static const int nThreadsX = 256;
+
+ //-----------------------------------------------------------------------------------
+ //
+ // CSMain:
+ //
+ //-----------------------------------------------------------------------------------
+[numthreads(nThreadsX, 1, 1)]
+void CSMain(uint2 id : SV_DispatchThreadID)
+{
+  const uint monoIdx = id.x + id.y * nThreadsX;
+
+  if (monoIdx >= vertexCount)
+  {
+    return;
+  }
+
+  // init indexes:
+  //_________________________________________________________________________________
+  const uint index = monoIdx;
+  const uint2 tex_index = getDualIdxFromMonoIdx(index);
+
+  // apply skinning to vertex:
+  //_________________________________________________________________________________
+  const float3 oriPosition = buf_position[index];
+  const float3 oriNormal   = buf_normal[index];
+
+  const BoneWeight boneWeight = buf_boneWeight[index];
+
+  const float4x4 boneMatrix0  = buf_boneMatrix[boneWeight.boneIndex0];
+  const float3x3 normalMatrix0 = buf_normalMatrix[boneWeight.boneIndex0];
+  const float weight0 = boneWeight.weight0;
+
+  const float4x4 boneMatrix1   = buf_boneMatrix[boneWeight.boneIndex1];
+  const float3x3 normalMatrix1 = buf_normalMatrix[boneWeight.boneIndex1];
+  const float weight1 = boneWeight.weight1;
+
+  const float4x4 boneMatrix2   = buf_boneMatrix[boneWeight.boneIndex2];
+  const float3x3 normalMatrix2 = buf_normalMatrix[boneWeight.boneIndex2];
+  const float weight2 = boneWeight.weight2;
+
+  const float4x4 boneMatrix3   = buf_boneMatrix[boneWeight.boneIndex3];
+  const float3x3 normalMatrix3 = buf_normalMatrix[boneWeight.boneIndex3];
+  const float weight3 = boneWeight.weight3;
+
+  // linear blend of matrices
+  //_________________________________________________________________________________
+  const float4x4 combinedBoneMatrix = weight0 * boneMatrix0 + weight1 * boneMatrix1 + weight2 * boneMatrix2 + weight3 * boneMatrix3;
+  const float3x3 combinedNormalMatrix = weight0 * normalMatrix0 + weight1 * normalMatrix1 + weight2 * normalMatrix2 + weight3 * normalMatrix3;
+
+  // calculate deformed position from combined matrix
+  //_________________________________________________________________________________
+  const float4 deformedPosition = mul(combinedBoneMatrix, float4(oriPosition, 1.0));
+
+  // for normals use inverse transposed instead
+  //_________________________________________________________________________________
+  const float4 deformedNormal = normalize(float4( mul(combinedNormalMatrix, oriNormal), 0.0));
+
+  // write positions/normals to texture:
+  //_________________________________________________________________________________
+  tex_position[tex_index] = deformedPosition; 
+  tex_normal[tex_index]   = deformedNormal;
+}

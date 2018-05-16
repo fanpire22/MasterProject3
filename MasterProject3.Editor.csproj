@@ -331,6 +331,18 @@
     <Reference Include="ProBuilderEditor-Unity5">
       <HintPath>Assets\ProCore\ProBuilder\Editor\ProBuilderEditor-Unity5.dll</HintPath>
     </Reference>
+    <Reference Include="FBXSharp">
+      <HintPath>Assets\CaronteFX\Plugin\Editor\FBXSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CaronteSharp">
+      <HintPath>Assets\CaronteFX\Plugin\Editor\CaronteSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CaronteFX-EditorBasic">
+      <HintPath>Assets\CaronteFX\Plugin\Editor\CaronteFX-EditorBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="CaronteFX-RuntimeBasic">
+      <HintPath>Assets\CaronteFX\Plugin\Scripts\CaronteFX-RuntimeBasic.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="MasterProject3.csproj">
@@ -339,6 +351,109 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\AnimationBaker\CarAnimationBaker.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\AnimationSampler\CarAnimationData.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\AnimationSampler\CarAnimatorSampler.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\AnimationSampler\CarBodyAnimationSampler.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\AnimationSampler\CarCRAnimationSampler.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CarCreationData.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CarPlayer.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CarSimulationDisplayer.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CarStaticInit.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CNEditorFactory.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CNFieldController.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CNHierarchy.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\CNNodesController.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Classes\IListController.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Inspectors\Caronte_Fx_Body_Editor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Inspectors\Caronte_Fx_Editor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Inspectors\CRAnimationEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Inspectors\CRBalltreeAssetEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Inspectors\CRCameraCapturerEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Managers\CarCallbacksManager.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Managers\CarEntityManager.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Managers\CarGOManager.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Managers\CarManager.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Managers\CarStringManager.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNAnimatedbodyEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNBodyEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNClothEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNCorpusclesEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNEffectEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNEffectExtendedEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNFluidEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNGroupEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNJointGroupsEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNMonoFieldEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNRigidBodyEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNRigidGlueEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNRopeEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNScriptPlayerEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNServosEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CNSoftbodyEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\CommandNodeEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNAimedForceEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNAnimedFallEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNAttractorEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNContactEmitterEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNEntityEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNExplosionEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNGravityEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNJetEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNParameterModifierEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNSpeedLimiterEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNSubstituterEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerByContactEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerByDetectorEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerByExplosionEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerByForceEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerByTimeEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNTriggerEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Entities\CNWindEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\IFieldEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNBaltreeGeneratorEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNFractureEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNHelperMeshEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNMeshToolEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNPivotModifierEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNSelectorEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNTessellatorEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\NodeEditors\Tools\CNWelderEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Scripting\CarGlobals.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Scripting\CarObject.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Scripting\CarSimulationExampleScript.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Scripting\CarSimulationScript.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Tools\CarAnimationUtils.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Tools\CarBodyUtils.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Tools\CarDataUtils.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Tools\CarFbxUtils.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Tools\CarToggleUtils.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CarListBox.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CarPlayerView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CarTimeSliderView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CNAddView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CNEditView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CNFieldExtendedView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\CNFieldView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\IListView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Views\IView.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarAboutWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarAddDefaultParticleSystemWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarAddFXMenu.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarBakeFrameMenu.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarBakeSimulationMenu.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarFbxExporterWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarMakeScreenshotsWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarManagerEditor.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarMaterialSubstituterWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarModifyInteriorFacesWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarPlayerWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarRebakeAnimationWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CarWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CNFieldWindow.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CNFieldWindowBig.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CNFieldWindowSmall.cs" />
+    <Compile Include="Assets\CaronteFX\Plugin\Editor\Windows\CNItemPopupWindow.cs" />
     <Compile Include="Assets\Cinemachine\Base\Editor\Editors\CinemachineBasicMultiChannelPerlinEditor.cs" />
     <Compile Include="Assets\Cinemachine\Base\Editor\Editors\CinemachineBlenderSettingsEditor.cs" />
     <Compile Include="Assets\Cinemachine\Base\Editor\Editors\CinemachineBlendListCameraEditor.cs" />
@@ -434,6 +549,31 @@
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\CaronteFX\Plugin\Editor\PluginResources\Strings\cr_strings_en.xml" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CFX Standard VA (double sided).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CFX Standard VA Specular Setup (double sided).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CFX Standard VA Specular Setup.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CFX Standard VA.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CFX-BASIC.cginc" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSComputeBones.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSComputeBonesInter.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSGPUSkinning.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSInterpolation.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSVertexAnimation.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSVertexAnimationBox.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSVertexAnimationFiber.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Resources\CarCSVertexNormalsFastUpdater.compute" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX DisplayNormals.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX Standard (double sided).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX Standard (interior).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX Standard Specular (double sided).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX Standard Specular (interior).shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\CFX VertexColors.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\Oven\CFX Corpuscles Depth.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\Oven\CFX Corpuscles Diffuse.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\Oven\CFX Fluid Compositor.shader" />
+    <None Include="Assets\CaronteFX\Plugin\Materials\Shaders\Oven\CFX-COMMON.cginc" />
+    <None Include="Assets\CaronteFX\ReadMe-CaronteFX.txt" />
     <None Include="Assets\Cinemachine\ReleaseNotes.txt" />
     <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\ProCore\ProBuilder\About\Font\SIL Open Font License.txt" />
