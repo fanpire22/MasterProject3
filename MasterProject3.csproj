@@ -232,6 +232,9 @@
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Library\FacebookSDK\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="CaronteFX-RuntimeBasic">
+      <HintPath>Assets\CaronteFX\Plugin\Scripts\CaronteFX-RuntimeBasic.dll</HintPath>
+    </Reference>
     <Reference Include="ProBuilderCore-Unity5">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
@@ -246,9 +249,6 @@
     </Reference>
     <Reference Include="Poly2Tri">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ClassesLib\Poly2Tri.dll</HintPath>
-    </Reference>
-    <Reference Include="CaronteFX-RuntimeBasic">
-      <HintPath>Assets\CaronteFX\Plugin\Scripts\CaronteFX-RuntimeBasic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
