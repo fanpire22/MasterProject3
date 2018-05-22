@@ -130,7 +130,7 @@ namespace CaronteFX
     //-----------------------------------------------------------------------------------
     private void ProcessEvents(Event ev, Rect listAreaObjects, Rect listAreaNodes)
     {
-      if (ev.type == EventType.mouseDown)
+      if (ev.type == EventType.MouseDown)
       {
         if ( listAreaObjects.Contains(ev.mousePosition) )
         {
