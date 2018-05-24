@@ -97,7 +97,7 @@ BlendTree:
     m_DirectBlendParameter: speedX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 3ef986d40309b7942b031266fa700589, type: 3}
+    m_Motion: {fileID: 7400000, guid: d6ae0469c8d38cc4abc3ab1aedcbd2a6, type: 3}
     m_Threshold: 0.05882353
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -105,7 +105,7 @@ BlendTree:
     m_DirectBlendParameter: speedX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 4f6e21c6f6d90b642baea425a27c75e5, type: 3}
+    m_Motion: {fileID: 7400000, guid: 12cf13ace6b42c44f8d261d0925b542e, type: 3}
     m_Threshold: 0.23529412
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -113,17 +113,41 @@ BlendTree:
     m_DirectBlendParameter: speedX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a53818babeac4644ba8c9126a70c9da9, type: 3}
+    m_Motion: {fileID: 7400000, guid: 687793e8ea766f84d898509616d90b7a, type: 3}
     m_Threshold: 0.29411766
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: speedX
     m_Mirror: 0
-  m_BlendParameter: speedX
-  m_BlendParameterY: speedZ
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: a08c86c4f269ab549a402fc274451b0e, type: 3}
+    m_Threshold: 0.35294122
+    m_Position: {x: 3, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: speedX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 4f6e21c6f6d90b642baea425a27c75e5, type: 3}
+    m_Threshold: 0.41176477
+    m_Position: {x: 0, y: 3}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: speedX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: a53818babeac4644ba8c9126a70c9da9, type: 3}
+    m_Threshold: 0.47058833
+    m_Position: {x: 0, y: -3}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: speedX
+    m_Mirror: 0
+  m_BlendParameter: speedZ
+  m_BlendParameterY: speedX
   m_MinThreshold: 0
-  m_MaxThreshold: 0.29411766
+  m_MaxThreshold: 0.47058833
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 2

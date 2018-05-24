@@ -18,8 +18,7 @@ public class Enemy : Soldier, IPointerClickHandler {
     [SerializeField] Color _attackColor = Color.red;
 
     [SerializeField] Transform _pathRoot;
-
-    [SerializeField] ParticleSystem _selectionPS;
+    
 
     #endregion
 
@@ -91,7 +90,6 @@ public class Enemy : Soldier, IPointerClickHandler {
         base.Start();
 
         _idleRotation = this.transform.rotation;
-        _selectionPS.Stop();
 
         StartViewConeProjector();
 
@@ -369,13 +367,11 @@ public class Enemy : Soldier, IPointerClickHandler {
     public void ActivateSelection()
     {
         _isSelected = true;
-        _selectionPS.Play();
     }
 
     public void DeactivateSelection()
     {
         _isSelected = false;
-        _selectionPS.Stop();
     }
 
     public override void Die()
