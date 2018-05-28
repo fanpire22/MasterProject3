@@ -309,7 +309,7 @@ GameObject:
   m_Layer: 10
   m_Name: AttackSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -733,6 +733,9 @@ GameObject:
   - component: {fileID: 195904891041880480}
   - component: {fileID: 114058557557476698}
   - component: {fileID: 114828094162957450}
+  - component: {fileID: 54332783846258850}
+  - component: {fileID: 136665005799561044}
+  - component: {fileID: 114703022274875228}
   m_Layer: 9
   m_Name: BlackICE
   m_TagString: Untagged
@@ -1444,6 +1447,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54332783846258850
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971666348288304}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54388897474669208
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1555,7 +1573,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528593555150158}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1567,7 +1585,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1491707042851792}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1602,6 +1620,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6374a544e584ff4418403a84f9c75c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114703022274875228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971666348288304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be81dd5de2db294d85f5640cc5ea6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ragdollRootBone: {fileID: 4187907985637542}
 --- !u!114 &114828094162957450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1650,7 +1680,7 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381991866387654}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1675,7 +1705,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422789887897088}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.11824354
@@ -1688,7 +1718,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194717692568418}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.11825119
@@ -1708,6 +1738,19 @@ CapsuleCollider:
   m_Height: 0.33944538
   m_Direction: 1
   m_Center: {x: 0, y: 0.16972269, z: 0}
+--- !u!136 &136665005799561044
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971666348288304}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!136 &136760927095471990
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1740,7 +1783,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1893969684601370}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.088854335
@@ -1753,7 +1796,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1376459734456868}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: edd6ec83a684eff4f9d9a53f047455f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.088854395
@@ -2298,8 +2341,8 @@ NavMeshAgent:
   m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 90
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

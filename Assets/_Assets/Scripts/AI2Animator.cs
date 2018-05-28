@@ -19,5 +19,6 @@ public class AI2Animator : MonoBehaviour {
         Vector3 localAgentVelocity = this.transform.InverseTransformVector(agentVelocity);
         _animator.SetFloat("speedX", localAgentVelocity.x);
         _animator.SetFloat("speedZ", localAgentVelocity.z);
+        
 	}
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : Soldier
+public class Player : Avatar
 {
 
 
@@ -15,6 +15,8 @@ public class Player : Soldier
     [SerializeField] float _runSpeed = 4.5f;
     [SerializeField] float _crouchSpeed = 2f;
     [SerializeField] float _maxAlertShootRadius = 6f;
+    [SerializeField] GameObject _attackIcon;
+    public UIManager UI;
 
 
     #endregion
@@ -31,7 +33,7 @@ public class Player : Soldier
     bool _isIdle;
     bool _isAiming;
     bool _isCrouching = false;
-    Enemy _targetEnemy;
+    Protector _targetEnemy;
     bool _isInteracting;
     bool _canInteractCancel = true;
     Interactive _targetInteract;
@@ -76,6 +78,11 @@ public class Player : Soldier
 
         UpdateAlertArea();
         UpdateInput();
+    }
+
+    public void FixedUpdate()
+    {
+        UI.TraceLvl += 0.0002f;
     }
 
     void UpdateAlertArea()
@@ -151,6 +158,11 @@ public class Player : Soldier
 
             _agent.SetDestination(this.transform.position);
             _animator.SetBool("aiming", true);
+
+            if (_attackIcon)
+            {
+                _attackIcon.SetActive(true);
+            }
         }
     }
 
@@ -169,17 +181,18 @@ public class Player : Soldier
             {
 
 
-                Soldier hittedSoldier = hitInfo.collider.GetComponentInParent<Soldier>();
-                if (hittedSoldier != null && hittedSoldier == _targetEnemy)
+                Avatar hittedAvatar = hitInfo.collider.GetComponentInParent<Avatar>();
+                if (hittedAvatar != null && hittedAvatar == _targetEnemy)
                 {
                     Vector3 crosshairPosition = _targetEnemy.crosshairTarget.position;
+                    
                     Vector3 screenPoint = Camera.main.WorldToScreenPoint(crosshairPosition);
                 }
                 else
                 {
                     Vector3 hitPoint = hitInfo.point;
                     Vector3 screenPoint = Camera.main.WorldToScreenPoint(hitPoint);
-                    
+
                 }
             }
             else
@@ -200,6 +213,8 @@ public class Player : Soldier
             _targetEnemy.DeactivateSelection();
 
             _animator.SetBool("aiming", false);
+            _animator.SetTrigger("ResetAttack");
+            _attackIcon.SetActive(false);
 
             _targetEnemy = null;
         }
@@ -220,7 +235,7 @@ public class Player : Soldier
         _agent.SetDestination(destination);
     }
 
-    public void AimAtTargetEnemy(Enemy enemy)
+    public void AimAtTargetEnemy(Protector enemy)
     {
         if (_isDead || !_canInteractCancel) { return; }
 
@@ -232,18 +247,47 @@ public class Player : Soldier
             _targetEnemy.DeactivateSelection();
         }
         _targetEnemy = enemy;
+
+        _attackIcon.transform.SetParent(_targetEnemy.crosshairTarget.transform);
+        _attackIcon.transform.position = _targetEnemy.crosshairTarget.transform.position;
+
         _targetEnemy.ActivateSelection();
 
         BeginAiming();
+    }
+
+    public void AimAtTargetICE(ICE enemy)
+    {
+        if (_isDead || !_canInteractCancel) { return; }
+
+
+        EndInteracting();
     }
 
     public void ShootAtTarget()
     {
         if (_isDead) return;
 
-        if (HasLineOfSightToSoldier(_targetEnemy))
+        if (HasLineOfSightToAvatar(_targetEnemy))
+        {
+            _animator.SetTrigger("Shoot");
+            Invoke("KillTarget", 2.06f);
+
+        }
+        else
+        {
+            // Dar feedback sobre el hecho de no poder disparar
+        }
+    }
+
+    public void KillTarget()
+    {
+        if (_isDead) return;
+
+        if (HasLineOfSightToAvatar(_targetEnemy))
         {
             _currentShootRadius = _maxAlertShootRadius;
+            _attackIcon.transform.SetParent(null);
 
             _targetEnemy.Die();
 

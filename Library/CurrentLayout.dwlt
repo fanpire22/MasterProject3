@@ -44,7 +44,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 1
-  controlID: 11
+  controlID: 91
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 12
+  controlID: 92
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 13
+  controlID: 93
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 14
+  controlID: 94
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_AnimEditor: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 28140
+  m_LastSelectedObjectID: -1072
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -349,14 +349,14 @@ MonoBehaviour:
     - {fileID: 1102839451232409084, guid: a222473defb0c0540bf9de392dfd7bbf, type: 2}
     - {fileID: 1102241169148134466, guid: a222473defb0c0540bf9de392dfd7bbf, type: 2}
     m_ValueSerializationHelper:
-    - e00: 1
+    - e00: 0.6814125
       e01: 0
       e02: 0
-      e03: 0
+      e03: 29.01416
       e10: 0
-      e11: 1
+      e11: 0.6814125
       e12: 0
-      e13: 0
+      e13: 114.622345
       e20: 0
       e21: 0
       e22: 1
@@ -457,7 +457,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 92
-    width: 241
+    width: 359
     height: 628
   m_PersistentViewDataDictionary: {fileID: 0}
   dragSelectMode: 2
@@ -555,20 +555,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/_Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - 'Assets/RPG Unitframe #1'
+  - Assets/_Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "E:\\Victor Manuel V\xE1zquez Coss\xEDo\\Pr\xE1cticas\\MasterProject3"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 95}
-    m_SelectedIDs: 8c0d0000
-    m_LastClickedID: 3468
-    m_ExpandedIDs: 000000008c0d0000b80e0000961200000c150000463c00000810010000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: b8160000
+    m_LastClickedID: 5816
+    m_ExpandedIDs: 000000008c0d0000ba0e0000a4120000421500003e3d0000403d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -596,7 +596,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008c0d0000b80e0000961200000c150000463c0000
+    m_ExpandedIDs: 000000008c0d0000ba0e0000a4120000421500003e3d0000403d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -623,8 +623,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: 723600000014edff789200003a3b0000fe3e00007839000000000000ee620000dc610000e46100001a8a0000c61200001a14000080120000021100000c12000044d10000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: 723600000014edff789200003a3b0000fe3e00007839000000000000ee620000dc610000e46100001a8a0000c61200001a140000801200000c12000044d10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -712,23 +712,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ac79f2ff
-    m_LastClickedID: -886356
-    m_ExpandedIDs: 2073eeff50afefff6844f1ffea9bf2ff22a0f6ff26a0f6ff2aa0f6ff2ea0f6ff30a0f6ff38a0f6ff3aa0f6ff3ca0f6ff42a0f6ff44a0f6ff46a0f6ff8aa0f6ff8ea0f6ff92a0f6ff9aa0f6ffaaa0f6ffaca0f6ff5eb2f6ff84b2f6ff98b2f6ffa4b2f6ffacb2f6ffb0b2f6ffb4b2f6ffb8b2f6ffc4b2f6ffdeb2f6ffe2b2f6ff2eb3f6ff12b4f6ff36b4f6ffb60df7ffbe0df7ffc20df7ffca0df7ffce0df7ffd60df7ffda0df7ffe20df7ffe60df7ffea0df7ffee0df7fff20df7fff60df7fffe0df7ff060ef7ff0e0ef7ff120ef7ff1a0ef7ff1e0ef7ff260ef7ff2a0ef7ff320ef7ff360ef7ff3a0ef7ff3e0ef7ff420ef7ff460ef7ff4a0ef7ff520ef7ff560ef7ff5a0ef7ff620ef7ff660ef7ff6a0ef7ff6e0ef7ff720ef7ff7e0ef7ffe20ef7ff5e99faffa0b3faff8cfaffff8efaffff90faffff92faffff94faffff96faffff9afaffff9cfaffffe6faffffeafaffffeefafffff2fafffff6fafffffefaffff04fbffff12fbffff66fbffff6cfbffff8afbffffa4fbffffb4fbffffb8fbffffbcfbffffc0fbffffc4fbffffc8fbffffccfbffffd4fbffffd8fbffffeafbffffeefbffff000000000219000026190000
+    m_SelectedIDs: d0fbffff
+    m_LastClickedID: -1072
+    m_ExpandedIDs: 8259f4ff16e7faff50faffff54faffff5afaffff5cfaffff74faffff7efaffff9efaffff70fbffff76fbffff7cfbffff7efbffff88fbffffa8fbffffcafbffffecfbffffeefbffff00000000e4180000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: RawImage (1)
-      m_OriginalName: RawImage (1)
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -1052514
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -764,14 +764,14 @@ MonoBehaviour:
     height: 628
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 10411.440014391816
+  lastFramingTime: 8432.120610937933
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 899.5, y: 155.5, z: 0}
+    m_Target: {x: 255.95425, y: 94.180084, z: -0.116760254}
     speed: 2
-    m_Value: {x: 899.5, y: 155.5, z: 0}
+    m_Value: {x: 255.95425, y: 94.180084, z: -0.116760254}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -799,13 +799,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.03089099, y: 0.011090125, z: -0.0003462355, w: -0.9994659}
+    m_Target: {x: -0.017099757, y: -0.013497474, z: -0.0002306668, w: 0.9997627}
     speed: 2
-    m_Value: {x: -0.030890847, y: 0.011090074, z: -0.0003462339, w: -0.99946123}
+    m_Value: {x: -0.017099757, y: -0.013497474, z: -0.0002306668, w: 0.9997627}
   m_Size:
-    m_Target: 597.3638
+    m_Target: 452.86847
     speed: 2
-    m_Value: 597.3638
+    m_Value: 452.86847
   m_Ortho:
     m_Target: 0
     speed: 2
