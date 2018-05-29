@@ -516,6 +516,8 @@ GameObject:
   - component: {fileID: 114010629026387986}
   - component: {fileID: 114512577618335948}
   - component: {fileID: 114247945599489596}
+  - component: {fileID: 54316785324498604}
+  - component: {fileID: 136559735323753666}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -1635,6 +1637,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54316785324498604
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559143430677114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54391938223371570
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1854,7 +1871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewRaycastOrigin: {fileID: 4156901569690680}
-  _viewRaycastDestination: {fileID: 4936163305291886}
+  _viewRaycastDestination: {fileID: 4078658106864920}
   _viewLayerMask:
     serializedVersion: 2
     m_Bits: 1297
@@ -1864,6 +1881,8 @@ MonoBehaviour:
   _runSpeed: 3.5
   _crouchSpeed: 1.5
   _maxAlertShootRadius: 6
+  _attackIcon: {fileID: 0}
+  IsCrouching: 0
 --- !u!114 &114247945599489596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1981,6 +2000,19 @@ CapsuleCollider:
   m_Height: 0.44499978
   m_Direction: 0
   m_Center: {x: -0.22249989, y: 0, z: 0}
+--- !u!136 &136559735323753666
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559143430677114}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136702285368460450
 CapsuleCollider:
   m_ObjectHideFlags: 1

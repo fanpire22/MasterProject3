@@ -252,7 +252,7 @@ public class Protector : Avatar, IPointerClickHandler {
             if (Time.time < _alertEndTime)
             {            
                 RotateTowardsPosition(_alertPoint);
-                GameManager.instance.player.UI.TraceLvl += 0.0002f * Time.deltaTime;
+                GameManager.instance.UI.TraceLvl += (0.0002f * Time.deltaTime);
             }
             else
             {
@@ -265,7 +265,6 @@ public class Protector : Avatar, IPointerClickHandler {
     {
         if(_isAlerted)
         {
-            Debug.Log("End alerted");
 
             _isAlerted = false;
             _agent.speed = _alertPreviousSpeed;
@@ -314,7 +313,7 @@ public class Protector : Avatar, IPointerClickHandler {
     {
         if(_isAttacking)
         {
-            GameManager.instance.player.UI.TraceLvl += 0.001f * Time.deltaTime;
+            GameManager.instance.UI.TraceLvl += (0.1f * Time.deltaTime);
 
             SetAlertPoint(GameManager.instance.player.transform.position);
             RotateTowardsPosition(_alertPoint);

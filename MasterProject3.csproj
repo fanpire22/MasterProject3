@@ -320,6 +320,7 @@
     <Compile Include="Assets\_Assets\Scripts\InteractionIK.cs" />
     <Compile Include="Assets\_Assets\Scripts\Interactive.cs" />
     <Compile Include="Assets\_Assets\Scripts\Laser.cs" />
+    <Compile Include="Assets\_Assets\Scripts\LowCover.cs" />
     <Compile Include="Assets\_Assets\Scripts\Player.cs" />
     <Compile Include="Assets\_Assets\Scripts\PlayerVCam.cs" />
     <Compile Include="Assets\_Assets\Scripts\Protector.cs" />

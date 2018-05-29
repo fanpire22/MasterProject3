@@ -10,13 +10,17 @@ public class GameManager : MonoBehaviour {
         get { return _instance; }        
     }
 
-    public Player player { get; private set; }    
+    public Player player { get; private set; }
+    public UIManager UI { get; private set; }
+    public bool Pause;
 
     private void Awake()
     {
         _instance = this;
 
         player = FindObjectOfType<Player>();
+        UI = FindObjectOfType<UIManager>();
+        Pause = false;
     }
     
 }

@@ -16,7 +16,6 @@ public class Player : Avatar
     [SerializeField] float _crouchSpeed = 2f;
     [SerializeField] float _maxAlertShootRadius = 6f;
     [SerializeField] GameObject _attackIcon;
-    public UIManager UI;
 
 
     #endregion
@@ -32,7 +31,7 @@ public class Player : Avatar
 
     bool _isIdle;
     bool _isAiming;
-    bool _isCrouching = false;
+    public bool IsCrouching = false;
     Protector _targetEnemy;
     bool _isInteracting;
     bool _canInteractCancel = true;
@@ -82,7 +81,7 @@ public class Player : Avatar
 
     public void FixedUpdate()
     {
-        UI.TraceLvl += 0.0002f;
+        GameManager.instance.UI.TraceLvl += 0.0002f;
     }
 
     void UpdateAlertArea()
@@ -99,16 +98,10 @@ public class Player : Avatar
     void UpdateInput()
     {
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && _canInteractCancel)
-        {
-            _isCrouching = !_isCrouching;
-            _animator.SetBool("crouch", _isCrouching);
-
-
-        }
+        _animator.SetBool("crouch", IsCrouching);
 
         //Determinamos primero si el jugador está corriendo
-        _agent.speed = (_isCrouching ? _crouchSpeed : (Input.GetKey(KeyCode.LeftShift) ? _runSpeed : _walkSpeed));
+        _agent.speed = (IsCrouching ? _crouchSpeed : (Input.GetKey(KeyCode.LeftShift) ? _runSpeed : _walkSpeed));
     }
 
     #endregion
@@ -363,10 +356,10 @@ public class Player : Avatar
         //Hemos llegado al objeto: Ya no podemos cancelar
         _canInteractCancel = false;
 
-        if (_isCrouching)
+        if (IsCrouching)
         {
             //Incorporamos al personaje
-            _isCrouching = false;
+            IsCrouching = false;
             _animator.SetBool("crouch", false);
 
             yield return new WaitForSeconds(0.5f);
