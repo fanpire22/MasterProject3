@@ -32,7 +32,7 @@ public class Player : Avatar
     bool _isIdle;
     bool _isAiming;
     public bool IsCrouching = false;
-    Protector _targetEnemy;
+    BlackICE _targetEnemy;
     bool _isInteracting;
     bool _canInteractCancel = true;
     Interactive _targetInteract;
@@ -228,7 +228,7 @@ public class Player : Avatar
         _agent.SetDestination(destination);
     }
 
-    public void AimAtTargetEnemy(Protector enemy)
+    public void AimAtTargetEnemy(BlackICE enemy)
     {
         if (_isDead || !_canInteractCancel) { return; }
 

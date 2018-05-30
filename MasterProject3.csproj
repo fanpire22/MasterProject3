@@ -313,6 +313,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Assets\Scripts\AI2Animator.cs" />
     <Compile Include="Assets\_Assets\Scripts\Avatar.cs" />
+    <Compile Include="Assets\_Assets\Scripts\CinematicIntro.cs" />
     <Compile Include="Assets\_Assets\Scripts\Floor.cs" />
     <Compile Include="Assets\_Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\_Assets\Scripts\GameOver.cs" />
@@ -323,7 +324,7 @@
     <Compile Include="Assets\_Assets\Scripts\LowCover.cs" />
     <Compile Include="Assets\_Assets\Scripts\Player.cs" />
     <Compile Include="Assets\_Assets\Scripts\PlayerVCam.cs" />
-    <Compile Include="Assets\_Assets\Scripts\Protector.cs" />
+    <Compile Include="Assets\_Assets\Scripts\BlackICE.cs" />
     <Compile Include="Assets\_Assets\Scripts\Ragdoll.cs" />
     <Compile Include="Assets\_Assets\Scripts\SineMovement.cs" />
     <Compile Include="Assets\_Assets\Scripts\UIManager.cs" />

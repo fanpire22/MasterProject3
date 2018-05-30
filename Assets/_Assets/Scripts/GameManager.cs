@@ -13,6 +13,19 @@ public class GameManager : MonoBehaviour {
     public Player player { get; private set; }
     public UIManager UI { get; private set; }
     public bool Pause;
+    public BlackICE[] BlackICEInScenario;
+
+    public void AlertICE()
+    {
+        for(int i = 0; i < BlackICEInScenario.Length; i++)
+        {
+            //Alertamos a todos los hielos negros de la posición del jugador, para que vayan a por él.
+            //Añadimos "ruido" (variación de la posición) para que no converjan todos en el mismo punto exactamente
+            Vector3 NoisePosition = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            BlackICEInScenario[i].BeginAlerted(player.transform.position + NoisePosition);
+        }
+    }
+
 
     private void Awake()
     {
@@ -21,6 +34,7 @@ public class GameManager : MonoBehaviour {
         player = FindObjectOfType<Player>();
         UI = FindObjectOfType<UIManager>();
         Pause = false;
+        BlackICEInScenario = FindObjectsOfType<BlackICE>();
     }
     
 }
