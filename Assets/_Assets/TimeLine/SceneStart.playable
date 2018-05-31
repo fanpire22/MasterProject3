@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Name: AnimationPlayableAsset of Crouching Idle
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 7400000, guid: 5646054c1e5108e46a01bf53059b3991, type: 3}
-  m_Position: {x: 8.41854, y: 0.004244566, z: -6.3626013}
-  m_EulerAngles: {x: 0, y: -70, z: 0}
+  m_Position: {x: 8.302491, y: 0.0013130307, z: -6.8940573}
+  m_EulerAngles: {x: 0, y: -30.000002, z: 0}
   m_UseTrackMatchFields: 0
   m_MatchTargetFields: 63
   m_RemoveStartOffset: 1
@@ -297,15 +297,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Crouching Idle
     m_Version: 1
-  - m_Start: 5.183333333333334
+  - m_Start: 4.716666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 114133129700828736}
-    m_Duration: 2.5
+    m_Duration: 2.283333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114895790939887864}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.20000000000000018
+    m_BlendInDuration: 0.2999999999999998
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -369,13 +369,13 @@ MonoBehaviour:
   - m_Start: 0.9666666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 114946505698729330}
-    m_Duration: 4.416666666666667
+    m_Duration: 4.05
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114895790939887864}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.20000000000000018
+    m_BlendOutDuration: 0.2999999999999998
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
