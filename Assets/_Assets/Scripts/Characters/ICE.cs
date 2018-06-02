@@ -12,6 +12,9 @@ public class ICE : MonoBehaviour
     [SerializeField] float _detectionRadius = 3;
     [SerializeField] Color _idleColor = Color.green;
     [SerializeField] Color _alertColor = Color.red;
+    [SerializeField] ParticleSystem _deathParticles;
+
+
     Transform[] _followPathPoints;
 
     private NavMeshAgent _agent;
@@ -83,7 +86,15 @@ public class ICE : MonoBehaviour
         {
             _inAlertMode = true;
             _alertArea.material.SetColor("_Color", _alertColor);
+            GameManager.instance.UI.TraceLvl += (0.1f * Time.deltaTime);
         }
 
+    }
+
+    public void Die()
+    {
+        Instantiate(_deathParticles,this.transform.position, new Quaternion());
+
+        Destroy(transform);
     }
 }

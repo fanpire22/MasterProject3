@@ -365,7 +365,7 @@ public class Player : Avatar
             yield return new WaitForSeconds(0.5f);
         }
 
-        _interactionIK.ActivateIK(_targetInteract.Handler);
+        _interactionIK.ActivateIK(_targetInteract.LeftHandler, _targetInteract.RightHandler);
         yield return new WaitForSeconds(0.5f);
 
         yield return StartCoroutine(_targetInteract.ActivateInteractionCoRoutine());

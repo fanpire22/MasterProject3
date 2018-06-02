@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class InteractionIK : MonoBehaviour
 {
-    Transform _target;
+    Transform _targetRightHand;
+    Transform _targetLeftHand;
 
     Animator _ani;
     float _IKWeight;
@@ -24,10 +25,11 @@ public class InteractionIK : MonoBehaviour
         _ani = GetComponent<Animator>();
     }
 
-    public void ActivateIK(Transform Target)
+    public void ActivateIK(Transform TargetLeft, Transform TargetRight)
     {
         _isIKActive = true;
-        _target = Target;
+        _targetLeftHand = TargetLeft;
+        _targetRightHand = TargetRight;
     }
 
     public void DisableIK()
@@ -52,16 +54,29 @@ public class InteractionIK : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        if (_target != null)
+        if (_targetLeftHand != null)
         {
 
-            _ani.SetIKPosition(AvatarIKGoal.LeftHand, _target.transform.position);
+            _ani.SetIKPosition(AvatarIKGoal.LeftHand, _targetLeftHand.transform.position);
             _ani.SetIKPositionWeight(AvatarIKGoal.LeftHand, _IKWeight);
 
-            _ani.SetIKRotation(AvatarIKGoal.LeftHand, _target.rotation);
+            _ani.SetIKRotation(AvatarIKGoal.LeftHand, _targetLeftHand.rotation);
             _ani.SetIKRotationWeight(AvatarIKGoal.LeftHand, _IKWeight);
 
-            _ani.SetLookAtPosition(_target.transform.position);
+            _ani.SetLookAtPosition(_targetLeftHand.transform.position);
+            _ani.SetLookAtWeight(_IKWeight);
+        }
+
+        if (_targetRightHand != null)
+        {
+
+            _ani.SetIKPosition(AvatarIKGoal.RightHand, _targetRightHand.transform.position);
+            _ani.SetIKPositionWeight(AvatarIKGoal.RightHand, _IKWeight);
+
+            _ani.SetIKRotation(AvatarIKGoal.RightHand, _targetLeftHand.rotation);
+            _ani.SetIKRotationWeight(AvatarIKGoal.RightHand, _IKWeight);
+
+            _ani.SetLookAtPosition(_targetRightHand.transform.position);
             _ani.SetLookAtWeight(_IKWeight);
         }
     }

@@ -10,18 +10,18 @@ public class UIManager : MonoBehaviour
 	[SerializeField] Text txtTraceSombra;
 	[SerializeField] GameObject GameOverlay;
 	[SerializeField] GameObject GameOverOverlay;
-	Conversation ConversationOverlay;
 
 	public float TraceLvl;
 	public bool IsTracing = false;
 
-	private void Awake()
-	{
-		ConversationOverlay = GetComponentInChildren<Conversation>();
-	}
+    private void Start()
+    {
+        //Nos suscribimos al evento de muerte
+        GameManager.instance.player.OnDie += GameOver;
+    }
 
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
 	{
 		if (!IsTracing) return;
 
@@ -38,16 +38,6 @@ public class UIManager : MonoBehaviour
 			txtTraceSombra.text = string.Format("TRACE: {0}%", TraceLvl);
 		}
 
-	}
-
-	public void Talk(string Texto, float WaitTime)
-	{
-		ConversationOverlay.Texto = Texto;
-	}
-
-	public void ShutUp()
-	{
-		ConversationOverlay.ShutUp();
 	}
 
 	public void GameOver()

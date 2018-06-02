@@ -4,89 +4,131 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
-[System.Serializable]public struct Conversacion
+[System.Serializable]
+public struct Conversacion
 {
     public string Texto;
     public float Duracion;
+    public CinemachineVirtualCamera ConvoCamera;
+    public string Nombre;
+    public Sprite Avatar;
+    public AudioClip BGM;
 }
 
-public class CinematicIntro : MonoBehaviour {
+public class CinematicIntro : MonoBehaviour
+{
 
     [SerializeField] CinemachineVirtualCamera CMIntro;
-	[SerializeField] CinemachineVirtualCamera CMICE;
-	[SerializeField] CinemachineVirtualCamera CMBlackICE;
-	public Conversacion[] Conversaciones;
+    [SerializeField] CinemachineVirtualCamera CMMainCamera;
+    [SerializeField] AudioSource BGMSource;
+    public Conversacion[] Conversaciones;
 
     PlayableDirector _dir;
     NavMeshAgent _agent;
     float waitConvoTime;
     int _iConvo;
-	AI2Animator _anim;
-	bool _bConvoStart = false;
+    AI2Animator _anim;
+    bool _bConvoStart = false;
+    Player _player;
+    InteractionIK _interaction;
 
-	private void Awake()
+    private void Awake()
     {
         _dir = GetComponent<PlayableDirector>();
         _agent = GetComponent<NavMeshAgent>();
-		_anim = GetComponent<AI2Animator>();
-	}
+        _anim = GetComponent<AI2Animator>();
+        _interaction = GetComponent<InteractionIK>();
+    }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (!_bConvoStart)
-		{
-			if (_dir.time >= _dir.duration - 0.3f)
-			{
-				_bConvoStart = true;
-			}
-		}
-		else
-		{
-			//Iniciamos la conversacion
-			Conversacion();
-		}
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        if (!_bConvoStart)
+        {
+            if (_dir.time >= _dir.duration - 0.3f)
+            {
+                _bConvoStart = true;
+            }
+        }
+        else
+        {
+            //Iniciamos la conversacion
+            Conversacion();
+        }
+    }
 
     void Conversacion()
     {
-        if(Time.time > waitConvoTime)
+        if (Time.time > waitConvoTime)
         {
-            GameManager.instance.UI.Talk(Conversaciones[_iConvo].Texto, Conversaciones[_iConvo].Duracion);
-            waitConvoTime = Time.time + Conversaciones[_iConvo].Duracion;
-
-			if(_iConvo == 4)
-			{
-				//Estamos mirando a un ICE
-				CMICE.Priority = 40;
-			}
-
-			if (_iConvo ==6)
-			{
-				//Estamos mirando a un BlackICE
-				CMICE.Priority = 10;
-				CMBlackICE.Priority = 40;
-			}
-
-			_iConvo++;
-            if(_iConvo >= Conversaciones.Length)
+            if (_iConvo >= Conversaciones.Length)
             {
-				//Ha acabado la intro. Desactivamos la cámara, desactivamos el director, y activamos el NavMeshAgent del personaje
-				GameManager.instance.UI.ShutUp();
+                //Ha acabado la intro. Desactivamos la cámara, desactivamos el director, y activamos el NavMeshAgent del personaje;
                 _agent.enabled = true;
-				_anim.enabled = true;
+                _anim.enabled = true;
                 _dir.enabled = false;
-                CMIntro.enabled = false;
-				CMBlackICE.enabled = false;
-				CMICE.enabled = false;
-				GameManager.instance.UI.IsTracing = true;
+                if (Conversaciones[_iConvo - 1].ConvoCamera)
+                {
+                    //Estábamos usando una cámara
+                    Conversaciones[_iConvo - 1].ConvoCamera.gameObject.SetActive(false);
+                }
+                CMIntro.gameObject.SetActive(false);
+                CMMainCamera.gameObject.SetActive(true);
+                GameManager.instance.UI.IsTracing = true;
+                _interaction.enabled = true;
                 this.enabled = false;
+            }
+            else
+            {
+
+                ConverManager conver = GameManager.instance.Conver;
+                conver.Texto = Conversaciones[_iConvo].Texto;
+
+                waitConvoTime = Time.time + Conversaciones[_iConvo].Duracion;
+
+                CancelInvoke("ShutUp");
+                Invoke("ShutUp", Conversaciones[_iConvo].Duracion);
+
+                if (Conversaciones[_iConvo].Avatar)
+                {
+                    //Tenemos un avatar: Lo ponemos en su imagen correspondiente
+                    conver.Avatar = Conversaciones[_iConvo].Avatar;
+                }
+
+                if (_iConvo > 0 && Conversaciones[_iConvo - 1].ConvoCamera)
+                {
+                    //Estábamos usando una cámara
+                    Conversaciones[_iConvo - 1].ConvoCamera.gameObject.SetActive(false);
+                }
+
+                if (Conversaciones[_iConvo].ConvoCamera)
+                {
+                    //Estamos usando una cámara
+                    Conversaciones[_iConvo].ConvoCamera.gameObject.SetActive(true);
+                }
+
+                if (Conversaciones[_iConvo].BGM)
+                {
+                    if (BGMSource)
+                    {
+                        BGMSource.clip = Conversaciones[_iConvo].BGM;
+                        BGMSource.Play();
+                    }
+                    else
+                    {
+                        AudioSource.PlayClipAtPoint(Conversaciones[_iConvo].BGM, this.transform.position);
+                    }
+                }
+
+                _iConvo++;
             }
         }
     }
+    void ShutUp()
+    {
+        GameManager.instance.Conver.ShutUp();
+    }
+
 }

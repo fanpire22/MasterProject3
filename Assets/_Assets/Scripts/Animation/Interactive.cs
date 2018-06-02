@@ -9,13 +9,17 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
 {
 
     [SerializeField] Transform _interactionPoint;
-    [SerializeField] Transform _handler;
+    [SerializeField] Transform _LeftHandler;
+    [SerializeField] Transform _RightHandler;
     [SerializeField] PlayableDirector _dir;
     [SerializeField] int _maxActivations = 1;
     VCamTrigger _camTrigger;
 
     public Transform InteractionPoint { get { return _interactionPoint; } }
-    public Transform Handler { get { return _handler; } }
+    public Transform LeftHandler { get { return _LeftHandler; } }
+    public Transform RightHandler { get { return _RightHandler; } }
+
+    public Action OnInteraction;
 
     Animator _ani;
     bool _isActive = false;
@@ -38,8 +42,12 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
 
     public IEnumerator ActivateInteractionCoRoutine()
     {
-        //Activamos el botón, esperamos dos décimas de segundo y activamos el director
-        _ani.SetTrigger("Press");
+        if (_ani != null)
+        {
+            //Activamos el botón, esperamos dos décimas de segundo y activamos el director
+            _ani.SetTrigger("Press");
+        }
+
         yield return new WaitForSeconds(0.2f);
 
         if (_dir != null)
@@ -53,5 +61,10 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
         {
             _camTrigger.DisableMe();
         }
+    }
+
+    public void OnActivationInteraction()
+    {
+        OnInteraction.Invoke() ;
     }
 }

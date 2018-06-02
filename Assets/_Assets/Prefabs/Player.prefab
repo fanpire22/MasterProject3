@@ -518,6 +518,9 @@ GameObject:
   - component: {fileID: 114247945599489596}
   - component: {fileID: 54316785324498604}
   - component: {fileID: 136559735323753666}
+  - component: {fileID: 320112402989637368}
+  - component: {fileID: 114162420401780690}
+  - component: {fileID: 114769497134816960}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -998,7 +1001,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1559143430677114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.075, y: 0, z: -6.79}
+  m_LocalPosition: {x: 6.9, y: 0, z: -14.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4406962774111304}
@@ -1883,6 +1886,17 @@ MonoBehaviour:
   _maxAlertShootRadius: 6
   _attackIcon: {fileID: 0}
   IsCrouching: 0
+--- !u!114 &114162420401780690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559143430677114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2022322e7142bf4a90546025e486416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114247945599489596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1901,11 +1915,63 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1559143430677114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6374a544e584ff4418403a84f9c75c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114769497134816960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559143430677114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0b4c51f5fb6b446aee1b99127f4e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CMIntro: {fileID: 0}
+  CMMainCamera: {fileID: 0}
+  Conversaciones:
+  - Texto: "\xA1Has conseguido llegar, novato! No cre\xED que fueras capaz... Me equivoqu\xE9."
+    Duracion: 5
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 21300000, guid: 4432e198f3149504ebd23b5f16d794d8, type: 3}
+  - Texto: "Ahora, escucha atentamente: Est\xE1s en una zona restringida de la red."
+    Duracion: 5
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
+  - Texto: "En nada van a buscarte, y si encuentran tu localizaci\xF3n real, tendr\xE1s
+      un equipo de SWAT saludando a tu carne cuando te desconectes."
+    Duracion: 6
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
+  - Texto: "Mant\xE9n la cabeza gacha y evita los ICE. En esta zona hay dos tipos:"
+    Duracion: 6
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
+  - Texto: "Los normales, que son muy simples y s\xF3lo dar\xE1n la alarma si te detectan,"
+    Duracion: 10
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
+  - Texto: "Y los \"Negros\". Esos tienen forma humanoide y, como te pillen, pueden
+      quemarte el pc, as\xED que ev\xEDtalos, o elim\xEDnalos antes."
+    Duracion: 10
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
+  - Texto: "Oh, los ICE normales s\xF3lo pueden ser eliminados desactivando sus procesos
+      vinculados. Suerte encontr\xE1ndolos."
+    Duracion: 6
+    ConvoCamera: {fileID: 0}
+    Nombre: Helper
+    Avatar: {fileID: 0}
 --- !u!119 &119944311570170340
 Projector:
   m_ObjectHideFlags: 1
@@ -2212,7 +2278,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.35650444, y: -0.009750813, z: -0.000000052154064}
+  m_ConnectedAnchor: {x: -0.35650444, y: -0.009750336, z: -0.000000052154064}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2300,7 +2366,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.28010997, y: -0.00000007636845, z: 0.00000025331977}
+  m_ConnectedAnchor: {x: -0.2801102, y: -0.000000016763806, z: -0.0000001564622}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -2344,7 +2410,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.09986096, y: -0.030250205, z: -0.16097839}
+  m_ConnectedAnchor: {x: -0.09986096, y: -0.030250205, z: -0.16097791}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2388,7 +2454,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000014901161, y: -0.000000014532304, z: -0.09752464}
+  m_ConnectedAnchor: {x: 0.000000014901161, y: -0.000000014532233, z: -0.097524166}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2432,7 +2498,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000014901161, y: 0.000000014532304, z: 0.09752464}
+  m_ConnectedAnchor: {x: -0.000000014901161, y: 0.000000014532233, z: 0.097524166}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2476,7 +2542,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.29207063, y: 0.059903484, z: 0.00030982235}
+  m_ConnectedAnchor: {x: -0.29207072, y: 0.059903022, z: 0.00030982235}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2520,7 +2586,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0998604, y: -0.030249787, z: 0.16097824}
+  m_ConnectedAnchor: {x: -0.09986052, y: -0.030250253, z: 0.16097824}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2564,7 +2630,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.47141936, y: -0.00000026717316, z: -0.00000021792951}
+  m_ConnectedAnchor: {x: -0.47141936, y: -0.00000031210948, z: 0.00000025704506}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2604,7 +2670,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1559143430677114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 2.5
@@ -2664,3 +2730,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!320 &320112402989637368
+PlayableDirector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559143430677114}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 2de1ea2316ef41548944fabdd8e298a8, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114895790939887864, guid: 2de1ea2316ef41548944fabdd8e298a8, type: 2}
+    value: {fileID: 1559143430677114}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References:
+    - 09557a2ec43523e47937b671643da87d: {fileID: 0}

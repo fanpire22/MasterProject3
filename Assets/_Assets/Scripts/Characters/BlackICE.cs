@@ -19,6 +19,7 @@ public class BlackICE : Avatar, IPointerClickHandler {
 
     [SerializeField] Transform _pathRoot;
     [SerializeField] bool _isCurious;
+    [SerializeField] ParticleSystem _deathParticles;
 
     #endregion
 
@@ -312,7 +313,7 @@ public class BlackICE : Avatar, IPointerClickHandler {
                     _agent.SetDestination(_alertPoint);
                     _agent.speed = _alertPreviousSpeed;
                 }
-                GameManager.instance.UI.TraceLvl += (0.0002f * Time.deltaTime);
+                GameManager.instance.UI.TraceLvl += (0.02f * Time.deltaTime);
             }
             else
             {
@@ -450,7 +451,7 @@ public class BlackICE : Avatar, IPointerClickHandler {
         if (_isDead) { return; }
 
         //Podríamos estar en el área de una zona de agachado automático, el punto de activación de una cámara o incluso la visión de otro enemigo
-        if (other.CompareTag("Player")){
+        if (other.transform.root.CompareTag("Player")){
             SetAlertPoint(other.bounds.center);
             BeginAlerted();
         }
@@ -489,6 +490,7 @@ public class BlackICE : Avatar, IPointerClickHandler {
         EndAttack();
 
         _viewConeProjector.gameObject.SetActive(false);
+        Instantiate(_deathParticles, this.transform.position, new Quaternion());
     }
 
     /// <summary>

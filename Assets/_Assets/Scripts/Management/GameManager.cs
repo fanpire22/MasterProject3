@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     public UIManager UI { get; private set; }
     public bool Pause;
     public BlackICE[] BlackICEInScenario;
+    public ConverManager Conver;
 
     public void AlertICE()
     {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 
         player = FindObjectOfType<Player>();
         UI = FindObjectOfType<UIManager>();
+        Conver = FindObjectOfType<ConverManager>();
         Pause = false;
         BlackICEInScenario = FindObjectsOfType<BlackICE>();
     }

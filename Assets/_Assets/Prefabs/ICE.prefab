@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4691966058580978}
   - component: {fileID: 195182297949621952}
+  - component: {fileID: 114713012264730492}
   m_Layer: 9
   m_Name: ICE
   m_TagString: Untagged
@@ -71,6 +72,7 @@ GameObject:
   - component: {fileID: 23038050784381784}
   - component: {fileID: 54365929383341964}
   - component: {fileID: 114263507078581616}
+  - component: {fileID: 65361109999095134}
   m_Layer: 10
   m_Name: Diamondo
   m_TagString: Untagged
@@ -97,13 +99,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723352199404464}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.3, z: 0.08700001}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 2.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4691966058580978}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4691966058580978
 Transform:
   m_ObjectHideFlags: 1
@@ -111,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1415123899024620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.8, y: 0, z: 0.963}
+  m_LocalPosition: {x: -24.28, y: 0, z: -20.58}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4513874836454394}
@@ -190,6 +192,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65361109999095134
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1755910592447636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4059367, y: 2.4380145, z: 2.4606986}
+  m_Center: {x: -0.00000333786, y: -0.0000027418137, z: -0.7017455}
 --- !u!114 &114263507078581616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,6 +224,23 @@ MonoBehaviour:
   btAsset_: {fileID: 0}
   renderCollider_: 1
   smoothRopeRenderMesh_: 0
+--- !u!114 &114713012264730492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415123899024620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6867bf1abfbb13b4e9b1fce79ba430e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pathRoot: {fileID: 0}
+  _detectionRadius: 3
+  _idleColor: {r: 0, g: 1, b: 0, a: 1}
+  _alertColor: {r: 1, g: 0, b: 0, a: 1}
+  _deathParticles: {fileID: 198895516027187336, guid: a6dff6428d9811c4c867dc83fbad34b4,
+    type: 2}
 --- !u!119 &119494182538518758
 Projector:
   m_ObjectHideFlags: 1
@@ -223,7 +254,7 @@ Projector:
   m_FieldOfView: 60
   m_AspectRatio: 1
   m_Orthographic: 1
-  m_OrthographicSize: 4.24
+  m_OrthographicSize: 3
   m_Material: {fileID: 2100000, guid: dd500c508275f334988740db2ece550d, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2

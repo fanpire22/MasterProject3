@@ -3,29 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Conversation : MonoBehaviour
+public class ConverManager : MonoBehaviour
 {
 
     public string Texto
     {
         set
         {
-			_txtBocadillo.text = string.Empty;
             canv.enabled = true;
+            _txtBocadillo.text = string.Empty;
             _bHayQueEscribir = true;
             _iPalabra = 0;
-            _siguientePalabra = Time.time + TiempoEscritura;
-            _arrayPalabras = value.Split(' ');
+            _siguienteLetra = Time.time + TiempoEscritura;
+            _arrayTexto = value.ToCharArray();
         }
     }
     public float TiempoEscritura;
+    public Sprite Avatar
+    {
+        set
+        {
+            avatar.sprite = value;
+        }
+    }
+
 
     private Text _txtBocadillo;
-    private string[] _arrayPalabras;
+    private char[] _arrayTexto;
     private bool _bHayQueEscribir = false;
-    private float _siguientePalabra;
+    private float _siguienteLetra;
     private int _iPalabra;
     private Canvas canv;
+    private Image avatar;
 
     // Use this for initialization
     void Awake()
@@ -33,6 +42,7 @@ public class Conversation : MonoBehaviour
         _txtBocadillo = GetComponentInChildren<Text>();
 
         canv = GetComponent<Canvas>();
+        avatar = GetComponentInChildren<Image>();
     }
 
     // Update is called once per frame
@@ -40,16 +50,16 @@ public class Conversation : MonoBehaviour
     {
         if (!_bHayQueEscribir) return;
 
-        if (Time.time > _siguientePalabra)
+        if (Time.time > _siguienteLetra)
         {
-            _txtBocadillo.text = _txtBocadillo.text + _arrayPalabras[_iPalabra] + " ";
+            _txtBocadillo.text = _txtBocadillo.text + _arrayTexto[_iPalabra];
             _iPalabra++;
 
-            _siguientePalabra = Time.time + TiempoEscritura;
-			_bHayQueEscribir = (_iPalabra < _arrayPalabras.Length);
+            _siguienteLetra = Time.time + TiempoEscritura;
+            _bHayQueEscribir = (_iPalabra < _arrayTexto.Length);
 
-		}
-	}
+        }
+    }
 
     public void ShutUp()
     {
