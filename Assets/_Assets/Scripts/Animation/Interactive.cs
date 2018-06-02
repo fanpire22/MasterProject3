@@ -11,7 +11,6 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
     [SerializeField] Transform _interactionPoint;
     [SerializeField] Transform _LeftHandler;
     [SerializeField] Transform _RightHandler;
-    [SerializeField] PlayableDirector _dir;
     [SerializeField] int _maxActivations = 1;
     VCamTrigger _camTrigger;
 
@@ -24,6 +23,7 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
     Animator _ani;
     bool _isActive = false;
     int _nActivated = 0;
+    PlayableDirector _dir;
 
     private void Awake()
     {
@@ -49,22 +49,21 @@ public class Interactive : MonoBehaviour, IPointerClickHandler
         }
 
         yield return new WaitForSeconds(0.2f);
+        if (OnInteraction != null)
+        {
+            OnInteraction.Invoke();
+        }
 
         if (_dir != null)
         {
             _dir.Play();
             yield return new WaitForSeconds((float)_dir.duration);
         }
-        
+
         _nActivated++;
         if (_camTrigger != null && _nActivated == _maxActivations)
         {
             _camTrigger.DisableMe();
         }
-    }
-
-    public void OnActivationInteraction()
-    {
-        OnInteraction.Invoke() ;
     }
 }

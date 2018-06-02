@@ -95,6 +95,6 @@ public class ICE : MonoBehaviour
     {
         Instantiate(_deathParticles,this.transform.position, new Quaternion());
 
-        Destroy(transform);
+        Destroy(gameObject);
     }
 }

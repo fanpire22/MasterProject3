@@ -21,12 +21,13 @@ GameObject:
   - component: {fileID: 4145490862865272}
   - component: {fileID: 33255206677712984}
   - component: {fileID: 23156765534663740}
+  - component: {fileID: 208117594162527860}
   m_Layer: 0
   m_Name: Doorgate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4145490862865272
 Transform:
@@ -83,3 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1416248255949926}
   m_Mesh: {fileID: 4300000, guid: e4a35e4d1ac8b8842bfa3b06916ed72d, type: 2}
+--- !u!208 &208117594162527860
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416248255949926}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 10.500001, y: 10, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 10.500001, y: 10, z: -0.5}
+  m_TimeToStationary: 0.5
