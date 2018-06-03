@@ -77,16 +77,19 @@ public class ICE : MonoBehaviour
     {
         _inAlertMode = false;
         _alertArea.material.SetColor("_Color", _idleColor);
-        
-        Vector3 playerPosition = GameManager.instance.player.transform.position;
-        Vector3 directionToPlayer = playerPosition - this.transform.position;
 
-
-        if (directionToPlayer.magnitude < _detectionRadius)
+        if (!GameManager.instance == null)
         {
-            _inAlertMode = true;
-            _alertArea.material.SetColor("_Color", _alertColor);
-            GameManager.instance.UI.TraceLvl += (0.1f * Time.deltaTime);
+            Vector3 playerPosition = GameManager.instance.player.transform.position;
+            Vector3 directionToPlayer = playerPosition - this.transform.position;
+
+
+            if (directionToPlayer.magnitude < _detectionRadius)
+            {
+                _inAlertMode = true;
+                _alertArea.material.SetColor("_Color", _alertColor);
+                GameManager.instance.UI.TraceLvl += (0.1f * Time.deltaTime);
+            }
         }
 
     }

@@ -321,10 +321,12 @@
     <Compile Include="Assets\_Assets\Scripts\Animation\AI2Animator.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\CinematicCheckPoint.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\CinematicIntro.cs" />
+    <Compile Include="Assets\_Assets\Scripts\Animation\Ending.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\ICETerminal.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\InteractionIK.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\Interactive.cs" />
     <Compile Include="Assets\_Assets\Scripts\Animation\KeyNScrInteract.cs" />
+    <Compile Include="Assets\_Assets\Scripts\Animation\LastCinematic.cs" />
     <Compile Include="Assets\_Assets\Scripts\Cameras\PlayerVCam.cs" />
     <Compile Include="Assets\_Assets\Scripts\Cameras\VCamTrigger.cs" />
     <Compile Include="Assets\_Assets\Scripts\Characters\Avatar.cs" />
@@ -335,6 +337,7 @@
     <Compile Include="Assets\_Assets\Scripts\Management\ConverManager.cs" />
     <Compile Include="Assets\_Assets\Scripts\Management\GameManager.cs" />
     <Compile Include="Assets\_Assets\Scripts\Management\GameOver.cs" />
+    <Compile Include="Assets\_Assets\Scripts\Management\MainScreen.cs" />
     <Compile Include="Assets\_Assets\Scripts\Management\UIManager.cs" />
     <Compile Include="Assets\_Assets\Scripts\Others\Floor.cs" />
     <Compile Include="Assets\_Assets\Scripts\Others\LowCover.cs" />

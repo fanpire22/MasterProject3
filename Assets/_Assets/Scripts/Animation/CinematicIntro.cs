@@ -42,6 +42,11 @@ public class CinematicIntro : MonoBehaviour
         _interaction = GetComponent<InteractionIK>();
     }
 
+    private void Start()
+    {
+        GameManager.instance.player.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
     // Update is called once per frame
     void Update()
     {
